@@ -38,27 +38,28 @@ void APlayerWeapon::fire()
 	
 	AActor *MyOwner = GetOwner();
 	
-
 	if(MyOwner)
-	{
-		
-		//Getting player eye height
+	{	
+		//Getting Position of the Camera or Player
 		FVector StartLocation;
 		FRotator StartRotation;
 		MyOwner->GetActorEyesViewPoint(StartLocation,StartRotation);
-        float RandomDistanceValue=1000;
-		
-        FVector EndLocation=StartLocation+StartRotation.Vector()*RandomDistanceValue;
+
+		//LineTrace Length
+		float RandomDistanceValue=1000;
+	    FVector EndLocation=StartLocation+StartRotation.Vector()*RandomDistanceValue;
 
 		FCollisionQueryParams MyQueryParams;
+		//Ignore Player
 		MyQueryParams.AddIgnoredActor(MyOwner);
+		//Ignore Weapon
 		MyQueryParams.AddIgnoredActor(this);
+
 		FHitResult Hit;
 		//FString NameOfOwner = MyOwner->GetName();
 		if(GetWorld()->LineTraceSingleByChannel(Hit,StartLocation,EndLocation,ECC_Visibility))
 		{
 			//UE_LOG(LogTemp,Log,TEXT("name:%s"),*MyOwner->GetName());
-		
 		}
 		DrawDebugLine(GetWorld(),StartLocation,EndLocation,FColor::Blue,false,1,0,1);
 	}
