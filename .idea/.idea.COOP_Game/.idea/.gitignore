@@ -1,0 +1,13 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/modules.xml
+/contentModel.xml
+/projectSettingsUpdater.xml
+/.idea.COOP_Game.iml
+# Datasource local storage ignored files
+/../../../../../../:\Unreal_Projects\COOP_Game\.idea\.idea.COOP_Game\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
