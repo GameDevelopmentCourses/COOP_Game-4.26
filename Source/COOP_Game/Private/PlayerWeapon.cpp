@@ -2,6 +2,7 @@
 
 #include "DrawDebugHelpers.h"
 #include "Kismet/GameplayStatics.h"
+#include "Particles/ParticleSystemComponent.h"
 
 // Sets default values
 APlayerWeapon::APlayerWeapon()
@@ -14,6 +15,8 @@ APlayerWeapon::APlayerWeapon()
 
 	//Socket placed on Gun Skeleton For MuzzleEffect
 	MuzzleSocketName="MuzzleSocket";
+
+    BulletTraceName="BeamEnd";
 }
 
 // Called when the game starts or when spawned
@@ -53,12 +56,18 @@ void APlayerWeapon::Fire()
 		//Ignore Weapon from collision
 		MyQueryParams.AddIgnoredActor(this);
 
+        //No Hit Than End Point Is Direction OF Looking
+		FVector BulletTraceEnd=EndLocation;
+		
 		FHitResult Hit;
 		if(GetWorld()->LineTraceSingleByChannel(Hit,StartLocation,EndLocation,ECC_Visibility))
 		{
+			
 			//If some thing is hit by line trace than apply point damage to it 
 			UGameplayStatics::ApplyPointDamage(Hit.GetActor(),20,ShortDirection,
 				Hit,MyOwner->GetInstigatorController(),this,DamageType);
+            //Hit Happens Than End Point Is Hit Location
+			BulletTraceEnd=Hit.Location;
 		}
 		
         //Debugline Representing line Trace 
@@ -78,5 +87,22 @@ void APlayerWeapon::Fire()
 			//Playing effect at Hit Location 
 			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(),BloodEffect,Hit.ImpactPoint,Hit.ImpactNormal.Rotation());
 		}
-    }
+		//Blood Trace Effect played on GunSocket to end point
+		//End Point Can be either hit point or any other point
+		if(BulletTraceEffect)
+		{
+			//Getting Start  Location For Bullet Trace
+			//Get The Gun Socket Location
+			FVector MuzzleLocation = MeshComp->GetSocketLocation(MuzzleSocketName); 
+            //Spawn Bullet Trace Particle System And Get Particle System Component
+			//This Allows Set The Target To Strech the effect
+			UParticleSystemComponent* BulletTraceComp = UGameplayStatics::SpawnEmitterAtLocation(GetWorld(),BulletTraceEffect,MuzzleLocation);
+			if(BulletTraceComp)
+			{
+				//Use Thsi Component to Set The End Point for Particle Spwan
+				BulletTraceComp->SetVectorParameter(BulletTraceName,BulletTraceEnd);
+			}
+		}
+		
+	}
 }

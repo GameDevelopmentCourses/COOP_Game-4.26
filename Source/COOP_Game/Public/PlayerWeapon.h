@@ -29,12 +29,18 @@ public:
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Weapon")
     FName MuzzleSocketName;
 
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Weapon")
+	FName BulletTraceName;
+
 	//Particle System For Muzzle Effect
 	UPROPERTY(EditDefaultsOnly,Category="Weapon")
 	UParticleSystem* MuzzleEffect;
 	//Particle System For Blood Effect 
 	UPROPERTY(EditDefaultsOnly,Category="Weapon")
 	UParticleSystem* BloodEffect;
+	
+	UPROPERTY(EditDefaultsOnly,Category="Weapon")
+	UParticleSystem* BulletTraceEffect;
 
 protected:
 	// Called when the game starts or when spawned
