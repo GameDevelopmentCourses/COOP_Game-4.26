@@ -22,6 +22,8 @@ public:
     UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Component")
 	USkeletalMeshComponent* MeshComp;
 
+	TSubclassOf<UDamageType> DamageType;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

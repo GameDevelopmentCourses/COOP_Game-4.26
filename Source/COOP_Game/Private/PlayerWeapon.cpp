@@ -4,6 +4,7 @@
 #include "PlayerWeapon.h"
 
 #include "DrawDebugHelpers.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 APlayerWeapon::APlayerWeapon()
@@ -47,7 +48,8 @@ void APlayerWeapon::fire()
 
 		//LineTrace Length
 		float RandomDistanceValue=1000;
-	    FVector EndLocation=StartLocation+StartRotation.Vector()*RandomDistanceValue;
+		FVector ShortDirection=StartRotation.Vector();
+	    FVector EndLocation=StartLocation+ShortDirection*RandomDistanceValue;
 
 		FCollisionQueryParams MyQueryParams;
 		//Ignore Player
@@ -59,7 +61,8 @@ void APlayerWeapon::fire()
 		//FString NameOfOwner = MyOwner->GetName();
 		if(GetWorld()->LineTraceSingleByChannel(Hit,StartLocation,EndLocation,ECC_Visibility))
 		{
-			UE_LOG(LogTemp,Log,TEXT("name:%s"),*MyOwner->GetName());
+			UGameplayStatics::ApplyPointDamage(Hit.GetActor(),20,ShortDirection,
+				Hit,MyOwner->GetInstigatorController(),this,DamageType);
 		}
 		DrawDebugLine(GetWorld(),StartLocation,EndLocation,FColor::Blue,false,1,0,1);
 	}
