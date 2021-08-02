@@ -24,11 +24,22 @@ public:
 
 	TSubclassOf<UDamageType> DamageType;
 
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Weapon")
+    FName MuzzleSocketName;
+
+	
+	
+	UPROPERTY(EditDefaultsOnly,Category="Weapon")
+	UParticleSystem* MuzzleEffect;
+
+
+	UPROPERTY(EditDefaultsOnly,Category="Weapon")
+	UParticleSystem* ImpulseEffect;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	
 
 public:	
 	// Called every frame

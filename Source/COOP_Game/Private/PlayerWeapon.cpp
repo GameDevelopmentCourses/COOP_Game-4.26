@@ -15,6 +15,9 @@ APlayerWeapon::APlayerWeapon()
     //Actual Gun Mesh
 	MeshComp = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("MeshComponent"));
 	RootComponent = MeshComp;
+
+	//Socket placed on Gun Skeleton For muzzleEffect
+	MuzzleSocketName="MuzzleSocket";
 }
 
 // Called when the game starts or when spawned
@@ -64,6 +67,15 @@ void APlayerWeapon::fire()
 			UGameplayStatics::ApplyPointDamage(Hit.GetActor(),20,ShortDirection,
 				Hit,MyOwner->GetInstigatorController(),this,DamageType);
 		}
+		if(MuzzleEffect)
+		{
+			UGameplayStatics::SpawnEmitterAttached(MuzzleEffect,MeshComp,MuzzleSocketName);
+		}
+		if(ImpulseEffect)
+		{
+			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(),ImpulseEffect,Hit.ImpactPoint,Hit.ImpactNormal.Rotation());
+		}
+		
 		DrawDebugLine(GetWorld(),StartLocation,EndLocation,FColor::Blue,false,1,0,1);
 	}
 	
