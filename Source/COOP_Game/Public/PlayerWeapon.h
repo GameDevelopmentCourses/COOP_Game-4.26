@@ -16,25 +16,25 @@ public:
 	APlayerWeapon();
 	
     UFUNCTION(BlueprintCallable,Category="Weapon")
-	void fire();
+	void Fire();
 
-	
+	//Actual Gun Mesh
     UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Component")
 	USkeletalMeshComponent* MeshComp;
 
+	//class Declaration to Apply point Damage
 	TSubclassOf<UDamageType> DamageType;
 
+	//Socket Name For Muzzle Effect spawning Place
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Weapon")
     FName MuzzleSocketName;
 
-	
-	
+	//Particle System For Muzzle Effect
 	UPROPERTY(EditDefaultsOnly,Category="Weapon")
 	UParticleSystem* MuzzleEffect;
-
-
+	//Particle System For Blood Effect 
 	UPROPERTY(EditDefaultsOnly,Category="Weapon")
-	UParticleSystem* ImpulseEffect;
+	UParticleSystem* BloodEffect;
 
 protected:
 	// Called when the game starts or when spawned

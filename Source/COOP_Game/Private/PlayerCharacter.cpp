@@ -22,6 +22,7 @@ APlayerCharacter::APlayerCharacter()
 	CameraComp = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
 	CameraComp->SetupAttachment(SpringArmComp);
 
+	//This Declaration is use Built in Functions To Perform Jump & Crouch
     ACharacter::GetMovementComponent()->GetNavAgentPropertiesRef().bCanCrouch = true;
 	ACharacter::GetMovementComponent()->GetNavAgentPropertiesRef().bCanJump = true;
 }
@@ -32,17 +33,20 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 
-	//axis are used for button press event that are analog in nature (means dependent on some value there output changes)
+	//Axis Mapping:- This are Analog in nature
+	//(means dependent on some value there output changes)
+
 	//Movement of Character
 	PlayerInputComponent->BindAxis("MoveForward",this,&APlayerCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight",this,&APlayerCharacter::MoveRight);
-
 
 	//Mouse control
 	PlayerInputComponent->BindAxis("LookUp",this,&APlayerCharacter::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis("Turn",this,&APlayerCharacter::AddControllerYawInput);
 
-	//This are digital in nature 
+	//Action Mapping:-This are digital in nature
+	//(value either 0 or 1)
+
 	//Crouch
 	PlayerInputComponent->BindAction("Crouch",IE_Pressed,this,&APlayerCharacter::BeginCrouch);
     PlayerInputComponent->BindAction("Crouch",IE_Released,this,&APlayerCharacter::EndCrouch);
@@ -54,14 +58,14 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 FVector APlayerCharacter::GetPawnViewLocation() const
 {
-	FVector2D TextSize = (2,2);
-	//Search for camera 
+	//Camera Attached To Player 
 	if(CameraComp)
 	{
 		return CameraComp->GetComponentLocation();
 	}
+	
 	//If camera is not present use the default function
-    //return CameraComp->GetComponentLocation();
+	//This Will Give Player Eye Height Location 
 	return Super::GetPawnViewLocation();
 }
 
@@ -76,7 +80,6 @@ void APlayerCharacter::BeginPlay()
 void APlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 //Movement

@@ -54,7 +54,8 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	
+
+	//Overriding a Default func to get Camera Location along with Eye Height Location
 	virtual FVector GetPawnViewLocation() const override;
 
 };
