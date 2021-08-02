@@ -71,7 +71,7 @@ void APlayerWeapon::Fire()
 		}
 		
         //Debugline Representing line Trace 
-		DrawDebugLine(GetWorld(),StartLocation,EndLocation,FColor::Blue,false,1,0,1);
+		//DrawDebugLine(GetWorld(),StartLocation,EndLocation,FColor::Blue,false,1,0,1);
 
 		//Firing Effect Played on the Muzzle of Gun
 		if(MuzzleEffect)
