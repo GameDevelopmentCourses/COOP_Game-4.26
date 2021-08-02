@@ -59,7 +59,7 @@ void APlayerWeapon::fire()
 		//FString NameOfOwner = MyOwner->GetName();
 		if(GetWorld()->LineTraceSingleByChannel(Hit,StartLocation,EndLocation,ECC_Visibility))
 		{
-			//UE_LOG(LogTemp,Log,TEXT("name:%s"),*MyOwner->GetName());
+			UE_LOG(LogTemp,Log,TEXT("name:%s"),*MyOwner->GetName());
 		}
 		DrawDebugLine(GetWorld(),StartLocation,EndLocation,FColor::Blue,false,1,0,1);
 	}
