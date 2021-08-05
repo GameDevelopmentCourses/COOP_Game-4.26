@@ -44,11 +44,9 @@ void APlayerWeapon::Fire()
 		FVector StartLocation;
 		FRotator StartRotation;
 		MyOwner->GetActorEyesViewPoint(StartLocation,StartRotation);
-
-		//LineTrace Length
-		float DistanceValue=1000;
+		
 		FVector ShortDirection=StartRotation.Vector();
-	    FVector EndLocation=StartLocation+ShortDirection*DistanceValue;
+	    FVector EndLocation=StartLocation+ShortDirection*DistanceOfLineTrace;
 
 		FCollisionQueryParams MyQueryParams;
 		//Ignore Player from collision
@@ -64,7 +62,7 @@ void APlayerWeapon::Fire()
 		{
 			
 			//If some thing is hit by line trace than apply point damage to it 
-			UGameplayStatics::ApplyPointDamage(Hit.GetActor(),20,ShortDirection,
+			UGameplayStatics::ApplyPointDamage(Hit.GetActor(),20,EndLocation,
 				Hit,MyOwner->GetInstigatorController(),this,DamageType);
             //Hit Happens Than End Point Is Hit Location
 			BulletTraceEnd=Hit.Location;
@@ -99,7 +97,7 @@ void APlayerWeapon::Fire()
 			UParticleSystemComponent* BulletTraceComp = UGameplayStatics::SpawnEmitterAtLocation(GetWorld(),BulletTraceEffect,MuzzleLocation);
 			if(BulletTraceComp)
 			{
-				//Use Thsi Component to Set The End Point for Particle Spwan
+				//Use This Component to Set The End Point for Particle Spwan
 				BulletTraceComp->SetVectorParameter(BulletTraceName,BulletTraceEnd);
 			}
 		}

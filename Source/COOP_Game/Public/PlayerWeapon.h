@@ -32,6 +32,9 @@ public:
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Weapon")
 	FName BulletTraceName;
 
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="Weapon")
+	float DistanceOfLineTrace=500;
+
 	//Particle System For Muzzle Effect
 	UPROPERTY(EditDefaultsOnly,Category="Weapon")
 	UParticleSystem* MuzzleEffect;
