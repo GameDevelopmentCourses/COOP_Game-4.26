@@ -4,6 +4,8 @@
 
 #include "GameFramework/PawnMovementComponent.h"
 
+
+#pragma region PlayerComponentsSetup
 // Sets default values
 APlayerCharacter::APlayerCharacter()
 {
@@ -11,12 +13,7 @@ APlayerCharacter::APlayerCharacter()
 	PrimaryActorTick.bCanEverTick = true;
 
 	//Camera Attached to SpringArm
-	
-	//Spring Arm for Camera 
-	
 	SpringArmComp = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComponet"));
-	//SpringArmComp->SetupAttachment(RootComponent);
-	
 	SpringArmComp->bUsePawnControlRotation = true;
 
 	CameraComp = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
@@ -26,6 +23,9 @@ APlayerCharacter::APlayerCharacter()
     ACharacter::GetMovementComponent()->GetNavAgentPropertiesRef().bCanCrouch = true;
 	ACharacter::GetMovementComponent()->GetNavAgentPropertiesRef().bCanJump = true;
 }
+#pragma endregion PlayerComponentsSetup
+
+#pragma region PlayerControlSetup
 
 // Called to bind functionality to input
 void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -56,6 +56,8 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindAction("Jump",IE_Released,this,&APlayerCharacter::EndJump);
 }
 
+#pragma endregion PlayerControlSetup
+
 FVector APlayerCharacter::GetPawnViewLocation() const
 {
 	//Camera Attached To Player 
@@ -76,12 +78,23 @@ void APlayerCharacter::BeginPlay()
 	Super::BeginPlay();
 }
 
+void APlayerCharacter::CameraZoomIn()
+{
+	CameraComp->SetFieldOfView(70);
+}
+
+void APlayerCharacter::CameraZoomOut()
+{
+	CameraComp->SetFieldOfView(90);
+}
+
 // Called every frame
 void APlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
 
+#pragma region PlayerActions 
 //Movement
 void APlayerCharacter::MoveForward(float Value)
 {
@@ -115,5 +128,5 @@ void APlayerCharacter::EndJump()
 {
 	StopJumping();
 }
-
+#pragma endregion PlayerActions
 

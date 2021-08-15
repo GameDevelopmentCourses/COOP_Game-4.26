@@ -4,6 +4,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Particles/ParticleSystemComponent.h"
 
+#pragma region WeaponComponent
 // Sets default values
 APlayerWeapon::APlayerWeapon()
 {
@@ -18,6 +19,7 @@ APlayerWeapon::APlayerWeapon()
 
     BulletTraceName="BeamEnd";
 }
+#pragma endregion  WeaponComponent
 
 // Called when the game starts or when spawned
 void APlayerWeapon::BeginPlay()
@@ -29,7 +31,9 @@ void APlayerWeapon::BeginPlay()
 void APlayerWeapon::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	//UE_LOG(LogTemp,Warning,TEXT("working"),);
 }
+
 
 //This Fire Function Is Called In Blueprint
 //Later this would be transfer to c++ in character class
@@ -47,6 +51,9 @@ void APlayerWeapon::Fire()
 		
 		FVector ShortDirection=StartRotation.Vector();
 	    FVector EndLocation=StartLocation+ShortDirection*DistanceOfLineTrace;
+
+		UE_LOG(LogTemp,Warning,TEXT("EndLocation Distance:- %s"),*ShortDirection.ToString());
+		
 
 		FCollisionQueryParams MyQueryParams;
 		//Ignore Player from collision
@@ -68,7 +75,7 @@ void APlayerWeapon::Fire()
 			BulletTraceEnd=Hit.Location;
 		}
 		
-        //Debugline Representing line Trace 
+        //Debug line Representing line Trace 
 		//DrawDebugLine(GetWorld(),StartLocation,EndLocation,FColor::Blue,false,1,0,1);
 
 		//Firing Effect Played on the Muzzle of Gun
@@ -82,9 +89,11 @@ void APlayerWeapon::Fire()
 		//If Line trace Hit nothing Than Dont Play Effect
 		if(BloodEffect && Hit.Actor!=nullptr)
 		{
+
 			//Playing effect at Hit Location 
 			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(),BloodEffect,Hit.ImpactPoint,Hit.ImpactNormal.Rotation());
 		}
+		
 		//Blood Trace Effect played on GunSocket to end point
 		//End Point Can be either hit point or any other point
 		if(BulletTraceEffect)

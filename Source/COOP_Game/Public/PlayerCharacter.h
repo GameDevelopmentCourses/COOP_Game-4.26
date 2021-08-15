@@ -46,6 +46,13 @@ protected:
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Component")
 	USpringArmComponent *SpringArmComp;
 
+	UFUNCTION(BlueprintCallable,Category="Camera")
+    void CameraZoomIn();
+
+	UFUNCTION(BlueprintCallable,Category="Camera")
+	void CameraZoomOut();
+
+
     
     	
 public:	

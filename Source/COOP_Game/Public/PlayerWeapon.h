@@ -18,6 +18,7 @@ public:
     UFUNCTION(BlueprintCallable,Category="Weapon")
 	void Fire();
 
+
 	//Actual Gun Mesh
     UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Component")
 	USkeletalMeshComponent* MeshComp;
@@ -33,19 +34,25 @@ public:
 	FName BulletTraceName;
 
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="Weapon")
-	float DistanceOfLineTrace=500;
+	float DistanceOfLineTrace=1000;
 
-	//Particle System For Muzzle Effect
-	UPROPERTY(EditDefaultsOnly,Category="Weapon")
-	UParticleSystem* MuzzleEffect;
-	//Particle System For Blood Effect 
+#pragma region ParticleEffects
+
+	//Particle For Blood Effect On Player Hit  
 	UPROPERTY(EditDefaultsOnly,Category="Weapon")
 	UParticleSystem* BloodEffect;
-	
+
+	//Particle For Muzzle Effect On Gun to Show Bullet is Firing
+	UPROPERTY(EditDefaultsOnly,Category="Weapon")
+	UParticleSystem* MuzzleEffect;
+
+	//Particle For Bullet Trace Effect to Show Bullet Tragectory
 	UPROPERTY(EditDefaultsOnly,Category="Weapon")
 	UParticleSystem* BulletTraceEffect;
 
-protected:
+#pragma endregion ParticleEffects
+
+	protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
