@@ -37,6 +37,11 @@ protected:
 	void BeginJump();
 
 	void EndJump();
+	
+	//Camera Control Functions
+	void CameraZoomIn();
+
+	void CameraZoomOut();
 
 	//Camera
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Component")
@@ -45,13 +50,6 @@ protected:
 	//SpringArm
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Component")
 	USpringArmComponent *SpringArmComp;
-
-	UFUNCTION(BlueprintCallable,Category="Camera")
-    void CameraZoomIn();
-
-	UFUNCTION(BlueprintCallable,Category="Camera")
-	void CameraZoomOut();
-
 
     
     	

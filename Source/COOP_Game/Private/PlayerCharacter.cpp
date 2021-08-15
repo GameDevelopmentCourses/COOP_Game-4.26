@@ -44,6 +44,7 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindAxis("LookUp",this,&APlayerCharacter::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis("Turn",this,&APlayerCharacter::AddControllerYawInput);
 
+
 	//Action Mapping:-This are digital in nature
 	//(value either 0 or 1)
 
@@ -54,6 +55,11 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	//Jump
 	PlayerInputComponent->BindAction("Jump",IE_Pressed,this,&APlayerCharacter::BeginJump);
 	PlayerInputComponent->BindAction("Jump",IE_Released,this,&APlayerCharacter::EndJump);
+
+	//Camera ZoomIn and ZoomOut
+	PlayerInputComponent->BindAction("Scope",IE_Pressed,this,&APlayerCharacter::CameraZoomIn);
+	PlayerInputComponent->BindAction("Scope",IE_Released,this,&APlayerCharacter::CameraZoomOut);
+
 }
 
 #pragma endregion PlayerControlSetup
