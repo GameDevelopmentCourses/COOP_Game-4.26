@@ -52,7 +52,7 @@ void APlayerWeapon::Fire()
 		FVector ShortDirection=StartRotation.Vector();
 	    FVector EndLocation=StartLocation+ShortDirection*DistanceOfLineTrace;
 
-		UE_LOG(LogTemp,Warning,TEXT("EndLocation Distance:- %s"),*ShortDirection.ToString());
+		//UE_LOG(LogTemp,Warning,TEXT("EndLocation Distance:- %s"),*ShortDirection.ToString());
 		
 
 		FCollisionQueryParams MyQueryParams;
@@ -89,9 +89,12 @@ void APlayerWeapon::Fire()
 		//If Line trace Hit nothing Than Dont Play Effect
 		if(BloodEffect && Hit.Actor!=nullptr)
 		{
-
-			//Playing effect at Hit Location 
-			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(),BloodEffect,Hit.ImpactPoint,Hit.ImpactNormal.Rotation());
+			//Checking If Hit Actor Has Damage Enabled 
+			if(Hit.Actor->CanBeDamaged())
+            {
+				//Playing effect at Hit Location
+				UGameplayStatics::SpawnEmitterAtLocation(GetWorld(),BloodEffect,Hit.ImpactPoint,Hit.ImpactNormal.Rotation());
+            }
 		}
 		
 		//Blood Trace Effect played on GunSocket to end point
