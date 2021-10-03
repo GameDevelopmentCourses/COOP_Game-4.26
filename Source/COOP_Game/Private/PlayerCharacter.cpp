@@ -100,7 +100,7 @@ void APlayerCharacter::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-#pragma region PlayerActions 
+#pragma region PlayerControlActions 
 //Movement
 void APlayerCharacter::MoveForward(float Value)
 {
@@ -134,5 +134,5 @@ void APlayerCharacter::EndJump()
 {
 	StopJumping();
 }
-#pragma endregion PlayerActions
+#pragma endregion PlayerControlActions
 

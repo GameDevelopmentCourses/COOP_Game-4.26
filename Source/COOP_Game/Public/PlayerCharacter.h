@@ -51,6 +51,10 @@ protected:
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Component")
 	USpringArmComponent *SpringArmComp;
 
+	//FinalScope Value
+	UPROPERTY(VisibleAnywhere,BlueprintReadWrite,Category="Camera")
+	float FinalScopeValue;
+
     
     	
 public:	
@@ -62,7 +66,6 @@ public:
 
 	//Overriding a Default func to get Camera Location along with Eye Height Location
 	virtual FVector GetPawnViewLocation() const override;
-
 };
 
 
